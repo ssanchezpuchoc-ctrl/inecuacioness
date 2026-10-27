@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inecuaciones en la feria del Valle del Mantaro</title>
+<meta name="description" content="Sesión de aprendizaje interactiva de Matemática, 2.º de secundaria: inecuaciones lineales con una incógnita.">
+<style>
+:root{
+  --tierra:#B4532A; --tierra-d:#8C3C1B; --maiz:#E8B431; --valle:#2E6B4F; --valle-l:#DDF0E5;
+  --noche:#1F2A37; --crema:#FBF6EA; --papel:#FFFFFF; --linea:#E6DCC8; --azul:#2D5D8A;
+  --error:#A8261C; --error-l:#FCE9E6; --hint-l:#FFF3D1; --info-l:#E7F0F8; --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--crema);color:var(--noche);line-height:1.55;font-size:17px;min-height:100vh;display:flex;flex-direction:column}
+.band{height:10px;background:repeating-linear-gradient(90deg,var(--tierra) 0 24px,var(--maiz) 24px 36px,var(--valle) 36px 60px,var(--noche) 60px 68px)}
+header.top{background:var(--noche);color:#fff;position:sticky;top:0;z-index:20}
+.top .in{max-width:980px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.top h1{font-size:1rem;margin:0;font-weight:700;letter-spacing:.2px}
+.top .where{font-size:.85rem;opacity:.85}
+.prog{height:6px;background:#3a4756}
+.prog > i{display:block;height:100%;width:0;background:var(--maiz);transition:width .35s}
+main{flex:1;max-width:980px;width:100%;margin:0 auto;padding:20px 16px 110px}
+main:focus{outline:none}
+.sec[hidden]{display:none}
+h2{font-size:1.65rem;line-height:1.2;margin:.2em 0 .5em;color:var(--tierra-d)}
+h3{font-size:1.15rem;margin:1.1em 0 .4em;color:var(--noche)}
+p{margin:.5em 0}
+.kicker{display:inline-block;background:var(--maiz);color:var(--noche);font-weight:700;font-size:.78rem;letter-spacing:.6px;text-transform:uppercase;padding:3px 10px;border-radius:99px}
+.card{background:var(--papel);border:1px solid var(--linea);border-radius:var(--r);padding:18px 18px;margin:14px 0;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.card.accent{border-left:6px solid var(--tierra)}
+.card.green{border-left:6px solid var(--valle)}
+.card.blue{border-left:6px solid var(--azul)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{background:var(--crema);border:1px solid var(--linea);border-radius:99px;padding:4px 12px;font-weight:600;font-size:.95rem}
+.chip b{color:var(--tierra-d)}
+.math{font-family:"Cambria Math",Cambria,Georgia,serif;font-size:1.25em;background:#FFF9E8;border:1px dashed var(--maiz);border-radius:10px;padding:2px 10px;white-space:nowrap}
+.big{font-size:1.5rem;text-align:center;margin:12px 0}
+.btn{appearance:none;border:0;background:var(--tierra);color:#fff;font:inherit;font-weight:700;padding:11px 20px;border-radius:12px;cursor:pointer;min-height:46px;transition:transform .1s,background .15s}
+.btn:hover{background:var(--tierra-d)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sec2{background:#fff;color:var(--tierra-d);border:2px solid var(--tierra)}
+.btn.sec2:hover{background:#FFF3EA}
+.btn.green{background:var(--valle)} .btn.green:hover{background:#235540}
+.btn.small{padding:6px 14px;min-height:36px;font-size:.92rem}
+:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+input[type=text],input[type=search],textarea,select{font:inherit;padding:10px 12px;border:2px solid var(--linea);border-radius:10px;background:#fff;color:inherit;max-width:100%}
+input[type=text]:focus,textarea:focus{border-color:var(--azul);outline:none}
+input.num{width:9em;text-align:center;font-weight:700}
+textarea{width:100%;min-height:90px;resize:vertical}
+label.f{display:block;font-weight:600;margin:10px 0 4px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.opts{display:grid;gap:8px;margin:10px 0}
+.opt{display:flex;gap:10px;align-items:center;border:2px solid var(--linea);border-radius:12px;padding:10px 12px;background:#fff;cursor:pointer;min-height:48px}
+.opt:hover{border-color:var(--azul)}
+.opt input{accent-color:var(--tierra);width:20px;height:20px;flex:none}
+.opt:has(input:checked){border-color:var(--azul);background:var(--info-l)}
+.opt.good{border-color:var(--valle);background:var(--valle-l)}
+.opt.bad{border-color:var(--error);background:var(--error-l);opacity:.6;text-decoration:line-through;cursor:not-allowed}
+.opt .optt{flex:1}
+.opt svg{max-width:100%;height:auto}
+.opts.graphs{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.syms{display:inline-flex;gap:6px}
+.syms label{display:inline-flex;position:relative}
+.syms input{position:absolute;opacity:0;pointer-events:none}
+.syms span{display:inline-grid;place-items:center;min-width:48px;height:48px;border:2px solid var(--linea);border-radius:12px;font-size:1.4rem;font-weight:700;cursor:pointer;background:#fff}
+.syms input:checked + span{background:var(--azul);border-color:var(--azul);color:#fff}
+.syms input:focus-visible + span{outline:3px solid var(--maiz)}
+.fb{margin-top:10px;border-radius:12px;padding:0;overflow:hidden}
+.fb > div{padding:10px 14px;border-radius:12px;border:2px solid}
+.fb .ok{background:var(--valle-l);border-color:var(--valle)}
+.fb .hint{background:var(--hint-l);border-color:var(--maiz)}
+.fb .info{background:var(--info-l);border-color:var(--azul)}
+.fb .err{background:var(--error-l);border-color:var(--error)}
+.fb em{display:block;margin-top:4px;opacity:.85}
+.meta{font-size:.86rem;opacity:.75;margin-top:6px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+.steps li{counter-increment:s;position:relative;padding:10px 12px 10px 52px;margin:8px 0;background:#fff;border:1px solid var(--linea);border-radius:12px}
+.steps li::before{content:counter(s);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--valle);color:#fff;display:grid;place-items:center;font-weight:700}
+.steps li[hidden]{display:none}
+table.t{width:100%;border-collapse:collapse;margin:10px 0;font-size:.95rem}
+table.t th,table.t td{border:1px solid var(--linea);padding:8px 10px;text-align:left;vertical-align:top}
+table.t th{background:var(--crema)}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.82rem;font-weight:700}
+.tag.g{background:var(--valle-l);color:var(--valle)} .tag.y{background:var(--hint-l);color:#7a5a00} .tag.r{background:var(--error-l);color:var(--error)} .tag.n{background:#ececec;color:#555}
+.nline{width:100%;height:auto;display:block}
+.nline .ax{stroke:var(--noche);stroke-width:2} .nline .axh{fill:var(--noche)}
+.nline .tk{stroke:var(--noche);stroke-width:1.5} .nline .tl{font-size:13px;text-anchor:middle;fill:var(--noche)}
+.nline .ray{stroke:var(--tierra);stroke-width:6;stroke-linecap:round} .nline .rayh{fill:var(--tierra)}
+.nline .pc{fill:var(--tierra);stroke:var(--tierra-d);stroke-width:2} .nline .po{fill:#fff;stroke:var(--tierra);stroke-width:3}
+.nline .pi{fill:var(--valle)} .nline .pin{fill:var(--azul)} .nline .al{font-size:14px;font-weight:700;text-anchor:middle;fill:var(--tierra-d)}
+.bar{position:relative;height:38px;background:#efe7d4;border-radius:10px;overflow:hidden;margin:26px 0 8px}
+.bar i{position:absolute;top:0;bottom:0;display:block}
+.bar .e{background:var(--maiz)} .bar .b{background:var(--tierra)} .bar .b.over{background:var(--error)}
+.bar .line{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--noche)}
+.barlab{position:relative;height:0}
+.barlab span{position:absolute;top:-62px;transform:translateX(-50%);font-size:.8rem;font-weight:700;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--tierra);height:32px}
+.nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--linea);z-index:20;box-shadow:0 -4px 14px rgba(0,0,0,.06)}
+.nav .in{max-width:980px;margin:0 auto;padding:10px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.nav .info{font-size:.88rem;opacity:.75;text-align:center;flex:1}
+body.exam-mode .nav, body.exam-mode header.top .where{display:none}
+body.exam-mode .noselect{user-select:none;-webkit-user-select:none}
+.examhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;background:var(--noche);color:#fff;border-radius:var(--r);padding:10px 16px}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.dots button{width:36px;height:36px;border-radius:50%;border:2px solid var(--linea);background:#fff;font-weight:700;cursor:pointer}
+.dots button.cur{border-color:var(--azul);background:var(--azul);color:#fff}
+.dots button.done{background:var(--valle-l);border-color:var(--valle)}
+.score{font-size:3rem;font-weight:800;color:var(--tierra-d);line-height:1}
+.warn{background:var(--error-l);border:2px solid var(--error);border-radius:12px;padding:12px 14px}
+.errtxt{color:var(--error);font-size:.9rem;min-height:1.2em}
+details{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:8px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:700}
+.story{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;background:#FFFCF3}
+@media (max-width:560px){ body{font-size:16px} h2{font-size:1.4rem} .btn{padding:10px 14px} .nav .info{display:none} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{ header.top,.nav,.no-print,.band{display:none!important} body{background:#fff} main{padding:0} .sec{display:block!important} }
+</style>
+</head>
+<body>
+<div class="band" aria-hidden="true"></div>
+<header class="top">
+  <div class="in">
+    <h1>🍎 Inecuaciones en la feria del Valle del Mantaro</h1>
+    <span class="where" id="where" aria-live="polite"></span>
+  </div>
+  <div class="prog" aria-hidden="true"><i id="progbar"></i></div>
+</header>
+<main id="app" tabindex="-1"></main>
+<nav class="nav" id="nav" aria-label="Navegación de la sesión">
+  <div class="in">
+    <button class="btn sec2" id="btnPrev" type="button">← Regresar</button>
+    <span class="info" id="navInfo"></span>
+    <button class="btn" id="btnNext" type="button">Siguiente →</button>
+  </div>
+</nav>
+
+<script>
+'use strict';
+/* =====================================================================
+   SESIÓN INTERACTIVA · INECUACIONES LINEALES · 2.º DE SECUNDARIA
+   Área: Matemática · Competencia: Resuelve problemas de regularidad,
+   equivalencia y cambio.
+   Un solo archivo, sin dependencias externas (funciona sin internet).
+   ===================================================================== */
+
+/* ---------- CONFIGURACIÓN (editable por el docente) ---------- */
+const CONFIG = {
+  // Cuando tengas tu base de datos, escribe aquí la URL del servicio que recibirá
+  // los resultados por POST (JSON). Si está vacío, solo se guarda en el dispositivo.
+  API_URL: '',
+  PREGUNTAS: 10,
+  PUNTOS_POR_PREGUNTA: 2,            // 10 preguntas × 2 = 20 puntos
+  MOSTRAR_RESPUESTAS_AL_FINAL: false, // false: solo muestra aciertos y temas a reforzar
+  UN_INTENTO_POR_DOCUMENTO: true,     // evita repetir la guía con el mismo documento (en este dispositivo)
+  STORAGE_KEY: 'inecuaciones_resultados_v1',
+  PROGRESS_KEY: 'inecuaciones_examen_en_curso_v1',
+  LAST_KEY: 'inecuaciones_ultimo_resultado_v1'
+};
+
+/* ---------- Utilidades ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+function el(tag, attrs = {}, ...kids) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === 'class') n.className = v;
+    else if (k === 'html') n.innerHTML = v;
+    else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+    else if (v === true) n.setAttribute(k, '');
+    else if (v !== false && v != null) n.setAttribute(k, v);
+  }
+  for (const k of kids.flat()) if (k != null) n.append(k.nodeType ? k : document.createTextNode(k));
+  return n;
+}
+const randInt = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+const pick = arr => arr[randInt(0, arr.length - 1)];
+const shuffle = arr => { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = randInt(0, i); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const fmt = n => String(Math.round(n * 10000) / 10000).replace('-', '−');
+const money = n => 'S/\u00A0' + fmt(n);
+const almost = (a, b) => Math.abs(a - b) < 1e-6;
+const FLIP = { '≤': '≥', '≥': '≤', '<': '>', '>': '<' };
+const holds = (v, sym, c) => sym === '≤' ? v <= c + 1e-9 : sym === '≥' ? v >= c - 1e-9 : sym === '<' ? v < c - 1e-9 : v > c + 1e-9;
+function parseNum(s) {
+  s = String(s ?? '').trim().replace(/\s+/g, '').replace('−', '-').replace(',', '.');
+  if (/^-?\d+\/\d+$/.test(s)) { const [a, b] = s.split('/').map(Number); return b ? a / b : NaN; }
+  if (/^-?(\d+\.?\d*|\.\d+)$/.test(s)) return Number(s);
+  return NaN;
+}
+const lin = (a, b) => `${a === 1 ? '' : a === -1 ? '−' : fmt(a)}x ${b < 0 ? '−' : '+'} ${fmt(Math.abs(b))}`;
+
+/* ---------- Datos aleatorios de la feria ---------- */
+const FRUTAS = ['manzanas', 'duraznos', 'tunas', 'chirimoyas', 'plátanos', 'uvas', 'fresas', 'mandarinas', 'paltas', 'granadillas'];
+const LUGARES = ['Concepción', 'Jauja', 'Chupaca', 'Huancayo', 'Sicaya', 'Orcotuna', 'Sapallanga'];
+const NOMBRES = ['Rosa', 'Luis', 'Mateo', 'Camila', 'Diego', 'Valeria', 'Ximena', 'Jhon', 'Sofía', 'Alexander', 'Milagros', 'Brayan'];
+// restos que dan decimales exactos al dividir entre el precio P
+const RESTOS = { 3: [], 4: [1, 2, 3], 5: [1, 2, 3, 4], 6: [3], 8: [2, 4, 6] };
+function genFeria(o = {}) {
+  const P = o.P ?? pick([3, 4, 5, 6, 8]);
+  let E = o.E ?? pick([4, 5, 6, 8, 10, 12]);
+  if (E === P) E += 2;
+  const n = o.n ?? randInt(5, 12);
+  const r = o.r ?? ((Math.random() < 0.5 || !RESTOS[P].length) ? 0 : pick(RESTOS[P]));
+  const B = P * n + E + r;
+  return { P, E, n, r, B, bound: (B - E) / P, fruta: pick(FRUTAS), lugar: pick(LUGARES), nombre: pick(NOMBRES), ineq: `${P}x + ${E} ≤ ${B}` };
+}
+const MODELO = genFeria({ P: 5, E: 8, n: 8, r: 0 }); // caso de la situación significativa: S/ 48, S/ 8, S/ 5
+const C = genFeria();                                 // datos de los retos (cambian al recargar)
+
+/* ---------- Estado de la sesión ---------- */
+const State = { track: {}, estimacion: null, meta: {}, lector: {}, previos: [] };
+const track = id => (State.track[id] ||= { attempts: 0, solved: false, revealed: false });
+
+/* ---------- Retroalimentación formativa ---------- */
+// Cada pista tiene 3 niveles: 0 = pregunta orientadora, 1 = pista más directa, 2 = casi la solución.
+const HINTS = {
+  generico: [
+    [() => 'Vuelve a leer el problema y subraya lo que se pide. ¿Qué dato todavía no usaste?', () => 'Revisa tu procedimiento paso a paso; probablemente hay un detalle pequeño.'],
+    [() => 'Haz una lista con los datos: presupuesto, empaque y precio por bolsa. ¿Cuál aplicaste mal?', () => 'Prueba con un valor sencillo (por ejemplo 2 bolsas) y mira si tu resultado tiene sentido.'],
+    [() => 'Sigue este orden: 1) plantear, 2) resolver, 3) comprobar en el contexto.']
+  ],
+  sinEmpaque: [
+    [() => 'Relee el problema: ¿pagas solo las bolsas o también algo más? Mira tu desigualdad: ¿aparece todo lo que se paga?', () => 'Fíjate en el gasto total. ¿Hay algún costo fijo que no aparece en tu desigualdad?'],
+    [c => `Falta un costo: el empaque de ${money(c.E)}. Se paga una sola vez, compres las bolsas que compres.`, c => `El gasto no es solo ${money(c.P)} por bolsa: también hay ${money(c.E)} de empaque.`],
+    [c => `Gasto total = empaque + bolsas = ${c.E} + ${c.P}x. Busca la opción cuyo lado izquierdo sea ${c.P}x + ${c.E}.`]
+  ],
+  signo: [
+    [() => 'Lee otra vez la condición: ¿el gasto debe ser mayor o menor que el presupuesto?', () => '¿Qué pasaría con el dinero si el gasto fuera mayor que el presupuesto?'],
+    [c => `“No pasarse” del presupuesto significa que el gasto es menor o igual que ${money(c.B)}.`, c => `Si el gasto fuera mayor que ${money(c.B)}, no alcanzaría el dinero. Entonces el símbolo debe ser “menor o igual”.`],
+    [c => `El gasto (${c.P}x + ${c.E}) debe ser ≤ ${c.B}. Elige la opción con el símbolo ≤.`]
+  ],
+  estricta: [
+    [() => 'Casi. Piensa: ¿qué pasa si gastas exactamente todo lo que tienes? ¿Está permitido?', () => '¿Se puede gastar justo el presupuesto? Entonces, ¿el símbolo incluye la igualdad?'],
+    [c => `Gastar justo ${money(c.B)} sí está permitido, por eso el símbolo debe incluir la igualdad (≤).`],
+    [c => `Con “<” se excluye gastar exactamente ${money(c.B)}. Usa “≤”.`]
+  ],
+  intercambio: [
+    [() => 'Revisa qué número multiplica a x: ¿lo que cambia con el número de bolsas es el empaque o el precio de cada bolsa?', () => 'x es el número de bolsas. ¿Por cuál precio se multiplica x?'],
+    [c => `x se multiplica por el precio de cada bolsa (${c.P}); el empaque (${c.E}) se paga una sola vez.`],
+    [c => `La expresión del gasto es ${c.P}x + ${c.E}. Busca esa.`]
+  ],
+  suma: [
+    [() => '¿Se multiplican por x los dos costos? Piensa cuál depende del número de bolsas.', () => 'Si compras el doble de bolsas, ¿el empaque también se duplica?'],
+    [c => `Solo el precio de la bolsa se multiplica por x. El empaque (${c.E}) es un costo fijo y se suma aparte.`],
+    [c => `Escribe: ${c.P}x (bolsas) + ${c.E} (empaque). No juntes ambos números dentro del coeficiente de x.`]
+  ],
+  a_suma: [
+    [() => 'Para pasar el empaque al otro lado, ¿qué operación inversa debes usar?', () => 'El empaque está sumando en el lado izquierdo. ¿Cómo lo “eliminas”?'],
+    [c => `Como ${c.E} está sumando, se resta en ambos miembros: ${c.B} − ${c.E}.`],
+    [c => `${c.B} − ${c.E} = ${c.B - c.E}. Escribe ese valor.`]
+  ],
+  a_igual: [
+    [() => 'Parece que no restaste el empaque en el lado derecho. ¿Qué debes hacer en ambos lados?', () => 'Recuerda: lo que haces a un lado de la desigualdad, también lo haces al otro.'],
+    [c => `Resta ${c.E} también al presupuesto: ${c.B} − ${c.E}.`],
+    [c => `${c.B} − ${c.E} = ${c.B - c.E}.`]
+  ],
+  a_dividido: [
+    [() => 'Ese valor parece el resultado del paso siguiente. Aquí solo debes restar; todavía no dividas.', () => 'Vas adelantado. En este paso solo se elimina el empaque.'],
+    [c => `En este paso escribe ${c.B} − ${c.E}. La división va en el paso 2.`]
+  ],
+  b_sinDividir: [
+    [() => 'Ya restaste, bien. Pero x tiene un coeficiente: ¿qué falta hacer para dejar x sola?', () => 'Ahora x todavía está multiplicada por un número. ¿Qué operación la deja sola?'],
+    [c => `Divide ambos miembros entre ${c.P}: ${c.B - c.E} ÷ ${c.P}.`],
+    [c => `${c.B - c.E} ÷ ${c.P} = ${fmt(c.bound)}.`]
+  ],
+  b_multiplico: [
+    [() => '¿Para despejar x se multiplica o se divide? Piensa en la operación inversa de la multiplicación.', () => 'x está multiplicada por el precio. La operación inversa es otra.'],
+    [c => `Debes dividir entre ${c.P}, no multiplicar.`],
+    [c => `${c.B - c.E} ÷ ${c.P} = ${fmt(c.bound)}.`]
+  ],
+  b_suma: [
+    [() => 'Revisa el primer paso: el empaque se resta, no se suma.', () => 'Cuando pasaste el empaque al otro lado, ¿qué operación hiciste?'],
+    [c => `Primero ${c.B} − ${c.E} = ${c.B - c.E}; luego divide entre ${c.P}.`]
+  ],
+  b_sinEmpaque: [
+    [() => 'Parece que no restaste el empaque antes de dividir. Revisa el orden de los pasos.', () => 'Antes de dividir, ¿ya quitaste el costo fijo?'],
+    [c => `Primero ${c.B} − ${c.E} = ${c.B - c.E}; después divide entre ${c.P}.`]
+  ],
+  b_sentido: [
+    [() => 'El número está bien. Revisa el símbolo: al dividir entre un número positivo, ¿cambia el sentido de la desigualdad?', () => 'Compara con la inecuación original: ¿qué símbolo tenía?'],
+    [() => 'Dividir entre un número positivo no cambia el sentido. Si la original era “≤”, la solución también.'],
+    [() => 'Usa el símbolo ≤.']
+  ],
+  b_redondeo: [
+    [() => 'Aún no redondees. La solución de la inecuación conserva el valor exacto; el redondeo lo pensamos en el contexto (Reto 3).', () => '¿Tu respuesta es el resultado exacto de la división?'],
+    [c => `${c.B - c.E} ÷ ${c.P} = ${fmt(c.bound)}. Escribe el valor exacto (decimal o fracción).`]
+  ],
+  c_decimal: [
+    [() => 'Las bolsas se cuentan de una en una: ¿se puede comprar media bolsa o 8,4 bolsas?', () => 'Piensa en el contexto: ¿cuántas bolsas completas puedes comprar?'],
+    [c => `Debes dar un número entero. Con x ≤ ${fmt(c.bound)}, ¿cuál es el mayor entero que no se pasa?`]
+  ],
+  c_arriba: [
+    [() => 'Comprueba tu respuesta en la inecuación original: ¿el gasto se pasa del presupuesto?', () => 'Redondear hacia arriba parece natural, pero ¿sigue cumpliéndose la condición?'],
+    [c => `Con ${c.n + 1} bolsas gastarías ${money(c.P * (c.n + 1) + c.E)}, que supera ${money(c.B)}. Debes quedarte con el entero menor.`],
+    [c => `Como x ≤ ${fmt(c.bound)}, el mayor entero permitido es ${c.n}.`]
+  ],
+  c_unaMas: [
+    [() => 'Comprueba: calcula el gasto total con tu respuesta. ¿Cumple la condición?', () => '¿Qué gasto resulta con ese número de bolsas? Compáralo con el presupuesto.'],
+    [c => `Con ${c.n + 1} bolsas: ${c.P}·${c.n + 1} + ${c.E} = ${c.P * (c.n + 1) + c.E}, que es mayor que ${c.B}.`],
+    [c => `El máximo entero que cumple x ≤ ${fmt(c.bound)} es ${c.n}.`]
+  ],
+  c_sinEmpaque: [
+    [() => 'Parece que dividiste todo el presupuesto entre el precio. ¿Y el empaque?', () => '¿Usaste el resultado de la inecuación que resolviste en el Reto 2?'],
+    [c => `Usa la solución x ≤ ${fmt(c.bound)}: el entero máximo debe cumplirla.`]
+  ]
+};
+const OK = {
+  first: ['¡Excelente! Lo lograste a la primera.', '¡Correcto! Tu planteamiento es sólido.', '¡Muy bien! Aplicaste el procedimiento con precisión.', '¡Así se hace! Respuesta correcta.'],
+  second: ['¡Bien! Con la pista corregiste tu respuesta.', '¡Correcto! Aprendiste del error y lo ajustaste.', '¡Muy bien! Revisar y corregir también es matemática.'],
+  third: ['¡Lo conseguiste! Insistir y corregir es parte del aprendizaje.', '¡Correcto! Con perseverancia llegaste a la respuesta.', '¡Bien! Ahora ya conoces el error y puedes evitarlo.']
+};
+const REFLEX = ['Pregúntate: ¿qué dato fue clave en este paso?', '¿Cómo le explicarías este paso a un compañero?', '¿Qué error evitarás la próxima vez?', '¿Cómo comprobarías que la respuesta tiene sentido en la feria?', '¿Qué estrategia te ayudó más aquí?'];
+const lastMsg = {};
+function hintMsg(key, attempt, c) {
+  const lvl = Math.min(attempt, 3) - 1;
+  const pool = (HINTS[key] && HINTS[key][lvl]) || HINTS.generico[lvl];
+  let m, tries = 0;
+  do { m = pick(pool)(c); tries++; } while (m === lastMsg[key + lvl] && tries < 6 && pool.length > 1);
+  lastMsg[key + lvl] = m;
+  return m;
+}
+const okMsg = a => `${pick(a === 1 ? OK.first : a === 2 ? OK.second : OK.third)}<em>${pick(REFLEX)}</em>`;
+
+function fbBox() {
+  const box = el('div', { class: 'fb', 'aria-live': 'polite' });
+  box.show = (type, html) => { box.innerHTML = `<div class="${type}">${html}</div>`; };
+  return box;
+}
+
+/* ---------- Componente de opción múltiple con pistas y reintento ---------- */
+function mcq({ id, options, hintFn, onSolved }) {
+  const t = track(id), name = 'q_' + id, box = fbBox();
+  const wrap = el('div', { class: 'opts' });
+  options.forEach((o, i) => {
+    o._lab = el('label', { class: 'opt' }, el('input', { type: 'radio', name, value: i }), el('span', { class: 'optt', html: o.t }));
+    wrap.append(o._lab);
+  });
+  const btn = el('button', { class: 'btn', type: 'button' }, 'Comprobar');
+  btn.addEventListener('click', () => {
+    const sel = wrap.querySelector('input:checked');
+    if (!sel) { box.show('info', 'Elige una opción para comprobar.'); return; }
+    const o = options[+sel.value]; t.attempts++;
+    if (o.ok) {
+      t.solved = true; o._lab.classList.add('good');
+      wrap.querySelectorAll('input').forEach(i => i.disabled = true); btn.disabled = true;
+      box.show('ok', okMsg(t.attempts)); onSolved && onSolved();
+    } else {
+      o._lab.classList.add('bad'); sel.checked = false; sel.disabled = true;
+      box.show('hint', '💡 ' + hintFn(o, t.attempts) + `<div class="meta">Intento ${t.attempts}. Puedes volver a intentarlo.</div>`);
+    }
+  });
+  return el('div', {}, wrap, el('div', { class: 'row' }, btn), box);
+}
+
+/* ---------- Recta numérica (SVG) ---------- */
+function lineSVG({ min, max, a = null, closed = true, dir = 'left', ints = [], mark = null, w = 640, h = 120, label = true }) {
+  const pad = 30, y = 62, X = v => pad + (v - min) / (max - min) * (w - 2 * pad);
+  let s = `<svg viewBox="0 0 ${w} ${h}" class="nline" role="img" aria-label="Recta numérica">`;
+  s += `<line x1="${pad - 12}" y1="${y}" x2="${w - pad + 12}" y2="${y}" class="ax"/>`;
+  s += `<path d="M${w - pad + 12},${y} l-9,-5 v10z" class="axh"/><path d="M${pad - 12},${y} l9,-5 v10z" class="axh"/>`;
+  const step = (max - min) > 16 ? 2 : 1;
+  for (let v = Math.ceil(min); v <= max; v++) {
+    const x = X(v);
+    s += `<line x1="${x}" y1="${y - 6}" x2="${x}" y2="${y + 6}" class="tk"/>`;
+    if ((v - Math.ceil(min)) % step === 0 || v === 0) s += `<text x="${x}" y="${y + 26}" class="tl">${fmt(v)}</text>`;
+  }
+  if (a !== null) {
+    const x = X(a), x2 = dir === 'left' ? pad - 8 : w - pad + 8;
+    s += `<line x1="${x}" y1="${y}" x2="${x2}" y2="${y}" class="ray"/>`;
+    s += dir === 'left' ? `<path d="M${x2 - 6},${y} l12,-8 v16z" class="rayh"/>` : `<path d="M${x2 + 6},${y} l-12,-8 v16z" class="rayh"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="9" class="${closed ? 'pc' : 'po'}"/>`;
+    if (label) s += `<text x="${x}" y="${y - 20}" class="al">${fmt(a)}</text>`;
+  }
+  ints.forEach(v => { s += `<circle cx="${X(v)}" cy="${y}" r="5" class="pi"/>`; });
+  if (mark !== null) s += `<path d="M${X(mark)},${y - 8} l-8,-18 h16z" class="pin"/>`;
+  return s + '</svg>';
+}
+
+/* =====================================================================
+   SECCIONES DE LA SESIÓN
+   ===================================================================== */
+const head = (kicker, title) => [el('span', { class: 'kicker' }, kicker), el('h2', {}, title)];
+const ctxCard = c => el('div', { class: 'card accent' },
+  el('p', { html: `<b>${c.nombre}</b> va a la feria de <b>${c.lugar}</b> con <b>${money(c.B)}</b> para comprar <b>${c.fruta}</b>. Las ${c.fruta} se venden en bolsas de <b>${money(c.P)}</b> cada una y debe pagar <b>${money(c.E)}</b> por el empaque (se paga una sola vez).` }),
+  el('div', { class: 'chips' }, el('span', { class: 'chip', html: `Presupuesto: <b>${money(c.B)}</b>` }), el('span', { class: 'chip', html: `Empaque: <b>${money(c.E)}</b>` }), el('span', { class: 'chip', html: `Precio por bolsa: <b>${money(c.P)}</b>` }), el('span', { class: 'chip', html: 'x = número de bolsas' })),
+  el('p', { class: 'meta' }, 'Estos datos cambian cada vez que recargas la página.'));
+
+/* 0 · Presentación */
+function buildPortada() {
+  const s = el('section', { class: 'sec' }, ...head('Sesión de aprendizaje · Matemática', 'Resolvemos problemas con inecuaciones lineales'));
+  s.append(
+    el('div', { class: 'card' },
+      el('div', { class: 'grid2' },
+        el('div', { html: '<b>Grado:</b> 2.º de secundaria<br><b>Área:</b> Matemática<br><b>Duración:</b> 90 minutos<br><b>Tema:</b> Inecuaciones lineales con una incógnita e interpretación de su conjunto solución' }),
+        el('div', { html: '<b>Competencia:</b> Resuelve problemas de regularidad, equivalencia y cambio.<br><b>Enfoque transversal:</b> Búsqueda de la excelencia (flexibilidad y apertura).<br><b>Competencia transversal:</b> Gestiona su aprendizaje de manera autónoma.' }))),
+    el('div', { class: 'card green' },
+      el('h3', {}, '🎯 Propósito'),
+      el('p', {}, 'Hoy plantearás y resolverás inecuaciones lineales para tomar decisiones de compra en una feria del Valle del Mantaro. Aprenderás a interpretar el conjunto solución y a comprobar si tu respuesta cumple las condiciones del problema.')),
+    el('div', { class: 'card blue' },
+      el('h3', {}, '🧭 ¿Cómo funciona esta página?'),
+      el('ul', {},
+        el('li', { html: 'Avanza con los botones <b>Siguiente</b> y <b>Regresar</b>.' }),
+        el('li', {}, 'Si te equivocas, recibirás una pista y podrás intentarlo de nuevo.'),
+        el('li', {}, 'Los ejercicios cambian cada vez que recargas la página, y la retroalimentación también.'),
+        el('li', {}, 'Al final encontrarás un resumen de tu avance y la Guía de actividad (10 ejercicios calificados).'))));
+  return s;
+}
+
+/* 1 · Motivación y saberes previos */
+const PREVIOS = [
+  { t: '¿Qué significa el símbolo ≤?', o: [['menor que', 0, 'Ese sería “<”, que no incluye la igualdad. Mira la rayita de abajo de ≤.'], ['menor o igual que', 1], ['mayor o igual que', 0, 'Ese es “≥”. Fíjate hacia dónde “abre” el símbolo.'], ['diferente de', 0, 'Ese es “≠”. Aquí compara un orden, no una diferencia.']] },
+  { t: '¿Cuál es la diferencia entre una ecuación y una inecuación?', o: [['La ecuación usa “=” y la inecuación usa <, >, ≤ o ≥', 1], ['No hay ninguna diferencia', 0, 'Sí la hay: observa el signo que une los dos miembros.'], ['La inecuación siempre tiene una sola solución', 0, 'Suele tener muchas soluciones. Piensa en x > 5.'], ['La ecuación solo se usa con fracciones', 0, 'Las ecuaciones se usan con cualquier tipo de número.']] },
+  { t: 'Resuelve 3x + 2 = 11. ¿Cuánto vale x?', o: [['x = 3', 1], ['x = 4', 0, 'Primero resta 2 (11 − 2 = 9) y luego divide entre 3.'], ['x = 13/3', 0, 'Parece que sumaste 2. Para quitar el +2 se resta.'], ['x = 9', 0, 'Falta el último paso: dividir entre 3.']] },
+  { t: 'Si 4x = 20, ¿qué operación aplicas para hallar x?', o: [['Dividir entre 4', 1], ['Restar 4', 0, 'La operación inversa de multiplicar es otra.'], ['Multiplicar por 4', 0, 'Eso haría crecer más el número. Usa la operación inversa.'], ['Sumar 4', 0, 'Sumar no deshace una multiplicación.']] },
+  { t: '¿Cuál de estos valores es solución de x > 5?', o: [['6', 1], ['5', 0, 'x > 5 no incluye al 5: tiene que ser estrictamente mayor.'], ['4', 0, '4 es menor que 5.'], ['−5', 0, '−5 está muy a la izquierda de 5.']] },
+  { t: '¿Qué expresión representa “el doble de un número, aumentado en 3”?', o: [['2x + 3', 1], ['2(x + 3)', 0, 'Ahí primero sumas 3 y luego duplicas. Aquí primero se duplica.'], ['x² + 3', 0, 'Doble es multiplicar por 2, no elevar al cuadrado.'], ['3x + 2', 0, 'Parece que cambiaste los números de lugar.']] },
+  { t: '¿Qué expresión es equivalente a “≥”?', o: [['al menos', 1], ['como máximo', 0, '“Como máximo” se escribe con ≤.'], ['menos de', 0, '“Menos de” se escribe con <.'], ['a lo más', 0, '“A lo más” se escribe con ≤.']] },
+  { t: 'Si x = 2, ¿cuánto vale 5x + 8?', o: [['18', 1], ['15', 0, 'Falta sumar el 8.'], ['20', 0, 'Primero multiplica 5 por 2 y luego suma 8.'], ['13', 0, 'Parece que sumaste 5 + 8 sin multiplicar por x.']] }
+];
+function buildMotivacion() {
+  const s = el('section', { class: 'sec' }, ...head('Inicio · Motivación', 'Antes de empezar…'));
+  const inp = el('input', { type: 'text', class: 'num', inputmode: 'numeric', 'aria-label': 'Tu estimación de bolsas' });
+  const fb = fbBox();
+  const btn = el('button', { class: 'btn small', type: 'button', onclick: () => {
+    const v = parseNum(inp.value);
+    if (isNaN(v)) { fb.show('info', 'Escribe un número para guardar tu estimación.'); return; }
+    State.estimacion = v; fb.show('ok', `Anotado: ${fmt(v)} bolsas. Más adelante comprobaremos con matemática si tu intuición acertó. 🔍`);
+  } }, 'Guardar estimación');
+  s.append(
+    el('div', { class: 'card accent' },
+      el('p', { class: 'big', html: '🍎 🍑 🛍️' }),
+      el('p', { html: 'Imagina que vas a la feria con <b>S/ 48</b>. Cada bolsa de fruta cuesta <b>S/ 5</b> y además debes pagar <b>S/ 8</b> por el empaque.' }),
+      el('p', { html: '<b>¿Es una sola respuesta o hay varias posibilidades que sirven?</b> Sin calcular, ¿cuántas bolsas crees que podrías comprar como máximo?' }),
+      el('div', { class: 'row' }, inp, btn), fb),
+    el('h3', {}, 'Recojo de saberes previos'),
+    el('p', {}, 'Responde estas 3 preguntas rápidas. Si fallas, tendrás una pista.'));
+  shuffle(PREVIOS).slice(0, 3).forEach((q, i) => {
+    s.append(el('div', { class: 'card' }, el('p', { html: `<b>${i + 1}.</b> ${q.t}` }),
+      mcq({ id: 'prev' + i, options: shuffle(q.o.map(([t, ok, h]) => ({ t, ok: !!ok, hint: h }))), hintFn: o => o.hint })));
+  });
+  return s;
+}
+
+/* 2 · Situación significativa y propósito */
+function buildSituacion() {
+  const s = el('section', { class: 'sec' }, ...head('Inicio · Problematización', 'Situación significativa'));
+  s.append(
+    el('div', { class: 'card accent' },
+      el('p', { html: 'En el Valle del Mantaro se realiza una feria donde las familias compran fruta fresca. <b>Rosa</b>, estudiante de 2.º de secundaria, acompaña a su mamá con un presupuesto de <b>S/ 48</b>. De ese dinero, <b>S/ 8</b> se destinarán al empaque y cada bolsa de fruta cuesta <b>S/ 5</b>.' }),
+      el('p', {}, 'Rosa nota que su mamá calcula de memoria y se pregunta cómo explicarlo con símbolos matemáticos.')),
+    el('div', { class: 'grid2' },
+      el('div', { class: 'card' }, el('b', {}, '❓ Pregunta 1'), el('p', {}, '¿Qué desigualdad representa el gasto total frente al presupuesto?')),
+      el('div', { class: 'card' }, el('b', {}, '❓ Pregunta 2'), el('p', {}, '¿Cómo se resuelve esa desigualdad?')),
+      el('div', { class: 'card' }, el('b', {}, '❓ Pregunta 3'), el('p', {}, '¿Cuántas bolsas se pueden comprar y qué significa el conjunto solución?'))),
+    el('div', { class: 'card green' }, el('h3', {}, '🎯 Propósito de la sesión'),
+      el('p', {}, 'Plantear una inecuación lineal con una incógnita, resolverla, representar su conjunto solución en la recta numérica y comprobar si cumple las condiciones del problema.'),
+      el('p', { class: 'meta' }, 'Criterios: traduce la condición a una inecuación · la resuelve con propiedades · representa e interpreta el conjunto solución · comprueba en el contexto.')));
+  return s;
+}
+
+/* 3 · Familiarización con el problema */
+function buildFamiliar() {
+  const s = el('section', { class: 'sec' }, ...head('Desarrollo · Familiarización', 'Entendemos el problema'));
+  const steps = [
+    ['<b>Define la incógnita.</b> x = número de bolsas que se compran.'],
+    ['<b>Escribe el gasto total.</b> Empaque + bolsas: <span class="math">8 + 5x</span>.'],
+    ['<b>Escribe la condición.</b> “No pasarse” del presupuesto: el gasto debe ser menor o igual a 48. <span class="math">5x + 8 ≤ 48</span>'],
+    ['<b>Resuelve.</b> <span class="math">5x ≤ 40</span> (restas 8) y luego <span class="math">x ≤ 8</span> (divides entre 5, positivo: el sentido no cambia).'],
+    ['<b>Interpreta y comprueba.</b> x cuenta bolsas, así que debe ser entero y no negativo: <span class="math">{0, 1, 2, …, 8}</span>. Con 8 bolsas: 5(8) + 8 = 48 ✔. Con 9: 53 &gt; 48 ✘.']
+  ];
+  const ol = el('ol', { class: 'steps' }, ...steps.map((t, i) => el('li', { html: t[0], hidden: i > 0 })));
+  let shown = 1;
+  const more = el('button', { class: 'btn small green', type: 'button' }, 'Mostrar el siguiente paso');
+  more.onclick = () => { ol.children[shown].hidden = false; shown++; if (shown >= steps.length) { more.disabled = true; more.textContent = 'Modelo completo'; } };
+  s.append(
+    el('div', { class: 'card' }, el('h3', {}, '1. Identificamos los datos'),
+      el('table', { class: 't' },
+        el('tr', {}, el('th', {}, 'Dato'), el('th', {}, 'Valor'), el('th', {}, '¿Qué representa?')),
+        el('tr', {}, el('td', {}, 'Presupuesto'), el('td', {}, 'S/ 48'), el('td', {}, 'Dinero máximo que se puede gastar')),
+        el('tr', {}, el('td', {}, 'Empaque'), el('td', {}, 'S/ 8'), el('td', {}, 'Costo fijo (se paga una sola vez)')),
+        el('tr', {}, el('td', {}, 'Precio por bolsa'), el('td', {}, 'S/ 5'), el('td', {}, 'Costo que depende de la cantidad (x)'))),
+      el('p', { html: '<b>Condición clave:</b> el gasto total <u>no debe superar</u> el presupuesto.' })),
+    el('div', { class: 'card green' }, el('h3', {}, '2. Modelo guiado (caso S/ 48)'), ol, el('div', { class: 'row' }, more)),
+    el('div', { class: 'card blue' }, el('p', { html: '<b>Ahora te toca a ti.</b> En los tres retos siguientes trabajarás con <b>datos nuevos</b>, que cambian cada vez que recargas la página. Si te equivocas, recibirás una pista.' })));
+  return s;
+}
+
+/* 4 · Reto 1 */
+function buildReto1() {
+  const s = el('section', { class: 'sec' }, ...head('Reto 1 de 3', 'Elige la inecuación'));
+  s.append(ctxCard(C), el('div', { class: 'card' },
+    el('p', { html: '<b>¿Qué inecuación representa que el gasto total no se pase del presupuesto?</b>' }),
+    (() => {
+      const ok = { t: `<span class="math">${C.P}x + ${C.E} ≤ ${C.B}</span>`, ok: true };
+      const bad = [
+        { t: `<span class="math">${C.P}x ≤ ${C.B}</span>`, err: 'sinEmpaque' },
+        { t: `<span class="math">${C.P}x + ${C.E} ≥ ${C.B}</span>`, err: 'signo' },
+        { t: `<span class="math">${C.P}x + ${C.E} < ${C.B}</span>`, err: 'estricta' },
+        { t: `<span class="math">${C.E}x + ${C.P} ≤ ${C.B}</span>`, err: 'intercambio' },
+        { t: `<span class="math">${C.P + C.E}x ≤ ${C.B}</span>`, err: 'suma' }
+      ];
+      return mcq({ id: 'r1', options: shuffle([ok, ...shuffle(bad).slice(0, 3)]), hintFn: (o, a) => hintMsg(o.err, a, C) });
+    })()));
+  return s;
+}
+
+/* 5 · Reto 2 */
+function buildReto2() {
+  const s = el('section', { class: 'sec' }, ...head('Reto 2 de 3', 'Resuelve la inecuación'));
+  const tA = track('r2a'), tB = track('r2b');
+  const fbA = fbBox(), fbB = fbBox();
+  const inA = el('input', { type: 'text', class: 'num', inputmode: 'decimal', 'aria-label': 'Resultado del paso 1' });
+  const inB = el('input', { type: 'text', class: 'num', inputmode: 'decimal', 'aria-label': 'Valor de x' });
+  const symsB = el('div', { class: 'syms', role: 'radiogroup', 'aria-label': 'Símbolo' }, ...['≤', '≥', '<', '>'].map(sy => el('label', {}, el('input', { type: 'radio', name: 'r2sym', value: sy }), el('span', {}, sy))));
+  const btnA = el('button', { class: 'btn', type: 'button' }, 'Comprobar paso 1');
+  const btnB = el('button', { class: 'btn', type: 'button', disabled: true }, 'Comprobar paso 2');
+  const revealBox = el('div');
+  const solHTML = `<div class="card green"><b>Procedimiento:</b><br>${C.P}x + ${C.E} ≤ ${C.B}<br>${C.P}x ≤ ${C.B} − ${C.E} = ${C.B - C.E}<br>x ≤ ${C.B - C.E} ÷ ${C.P} = ${fmt(C.bound)}</div>`;
+  function reveal() {
+    tA.solved = tB.solved = true; tA.revealed = tB.revealed = true;
+    revealBox.innerHTML = solHTML; [inA, inB, btnA, btnB].forEach(n => n.disabled = true);
+    s.querySelectorAll('input[name=r2sym]').forEach(i => i.disabled = true);
+  }
+  function maybeReveal(t, box) {
+    if (t.attempts >= 3 && !t.solved && !box.querySelector('.rv')) {
+      const b = el('button', { class: 'btn small sec2 rv', type: 'button', onclick: reveal }, 'Ver el procedimiento (cuenta como “con ayuda”)');
+      box.append(el('div', { class: 'row rv' }, b));
+    }
+  }
+  btnA.onclick = () => {
+    const v = parseNum(inA.value);
+    if (isNaN(v)) { fbA.show('info', 'Escribe un número (puedes usar coma o punto decimal).'); return; }
+    tA.attempts++;
+    if (almost(v, C.B - C.E)) { tA.solved = true; inA.disabled = btnA.disabled = true; btnB.disabled = false; fbA.show('ok', okMsg(tA.attempts)); return; }
+    const key = almost(v, C.B + C.E) ? 'a_suma' : almost(v, C.B) ? 'a_igual' : (almost(v, C.bound) ? 'a_dividido' : 'generico');
+    fbA.show('hint', '💡 ' + hintMsg(key, tA.attempts, C) + `<div class="meta">Intento ${tA.attempts}.</div>`); maybeReveal(tA, fbA);
+  };
+  btnB.onclick = () => {
+    const v = parseNum(inB.value), sy = (s.querySelector('input[name=r2sym]:checked') || {}).value;
+    if (!sy) { fbB.show('info', 'Elige el símbolo de la desigualdad.'); return; }
+    if (isNaN(v)) { fbB.show('info', 'Escribe un número (puedes usar coma, punto o una fracción como 42/5).'); return; }
+    tB.attempts++;
+    if (sy === '≤' && almost(v, C.bound)) { tB.solved = true; inB.disabled = btnB.disabled = true; s.querySelectorAll('input[name=r2sym]').forEach(i => i.disabled = true); fbB.show('ok', okMsg(tB.attempts) + `<div class="meta">Solución: x ≤ ${fmt(C.bound)}</div>`); return; }
+    let key = 'generico';
+    if (almost(v, C.bound)) key = 'b_sentido';
+    else if (almost(v, C.B - C.E)) key = 'b_sinDividir';
+    else if (almost(v, (C.B - C.E) * C.P)) key = 'b_multiplico';
+    else if (almost(v, (C.B + C.E) / C.P)) key = 'b_suma';
+    else if (almost(v, C.B / C.P)) key = 'b_sinEmpaque';
+    else if (C.r > 0 && almost(v, Math.round(C.bound))) key = 'b_redondeo';
+    else if (C.r > 0 && almost(v, Math.floor(C.bound))) key = 'b_redondeo';
+    fbB.show('hint', '💡 ' + hintMsg(key, tB.attempts, C) + `<div class="meta">Intento ${tB.attempts}.</div>`); maybeReveal(tB, fbB);
+  };
+  s.append(ctxCard(C), el('div', { class: 'card' },
+    el('p', { html: `Resuelve la inecuación del problema: <span class="math">${C.P}x + ${C.E} ≤ ${C.B}</span>` }),
+    el('h3', {}, 'Paso 1 · Elimina el empaque'),
+    el('div', { class: 'row' }, el('span', { class: 'math' }, `${C.P}x + ${C.E} − ${C.E} ≤ ${C.B} − ${C.E}`), el('span', {}, '⟹'), el('span', { class: 'math' }, `${C.P}x ≤`), inA, btnA), fbA,
+    el('h3', {}, 'Paso 2 · Despeja x'),
+    el('div', { class: 'row' }, el('span', { class: 'math' }, 'x'), symsB, inB, btnB), fbB, revealBox));
+  return s;
+}
+
+/* 6 · Reto 3 */
+function buildReto3() {
+  const s = el('section', { class: 'sec' }, ...head('Reto 3 de 3', '¿Cuántas bolsas se pueden comprar?'));
+  const t = track('r3'), fb = fbBox(), out = el('div');
+  const inp = el('input', { type: 'text', class: 'num', inputmode: 'numeric', 'aria-label': 'Máximo de bolsas' });
+  const btn = el('button', { class: 'btn', type: 'button' }, 'Comprobar');
+  const rev = el('button', { class: 'btn small sec2', type: 'button', hidden: true }, 'Ver el procedimiento (cuenta como “con ayuda”)');
+  const check = () => {
+    const g1 = C.P * C.n + C.E, g2 = C.P * (C.n + 1) + C.E;
+    out.innerHTML = `<div class="card green"><b>Comprobación en el contexto</b><table class="t"><tr><th>Bolsas</th><th>Gasto total</th><th>¿Cumple ≤ ${C.B}?</th></tr>
+      <tr><td>${C.n}</td><td>${C.P}·${C.n} + ${C.E} = ${g1}</td><td>✔ Sí</td></tr>
+      <tr><td>${C.n + 1}</td><td>${C.P}·${C.n + 1} + ${C.E} = ${g2}</td><td>✘ No (se pasa por ${money(g2 - C.B)})</td></tr></table>
+      <p>Solución de la inecuación: <b>x ≤ ${fmt(C.bound)}</b>. En el contexto, x es entero y no negativo: <b>{0, 1, …, ${C.n}}</b>. Máximo: <b>${C.n} bolsas</b>.</p></div>`;
+  };
+  const finish = () => { inp.disabled = btn.disabled = true; rev.hidden = true; check(); };
+  btn.onclick = () => {
+    const v = parseNum(inp.value);
+    if (isNaN(v)) { fb.show('info', 'Escribe un número.'); return; }
+    t.attempts++;
+    if (v === C.n) { t.solved = true; finish(); fb.show('ok', okMsg(t.attempts)); return; }
+    let key = 'generico';
+    if (!Number.isInteger(v)) key = 'c_decimal';
+    else if (C.r > 0 && v === Math.ceil(C.bound)) key = 'c_arriba';
+    else if (v === C.n + 1) key = 'c_unaMas';
+    else if (v === Math.floor(C.B / C.P)) key = 'c_sinEmpaque';
+    fb.show('hint', '💡 ' + hintMsg(key, t.attempts, C) + `<div class="meta">Intento ${t.attempts}.</div>`);
+    if (t.attempts >= 3) rev.hidden = false;
+  };
+  rev.onclick = () => { t.solved = true; t.revealed = true; finish(); fb.show('info', 'Revisa la comprobación y vuelve a este reto con otros datos al recargar la página.'); };
+  s.append(ctxCard(C), el('div', { class: 'card' },
+    el('p', { html: `Ya resolviste <span class="math">${C.P}x + ${C.E} ≤ ${C.B}</span> y obtuviste <span class="math">x ≤ ${fmt(C.bound)}</span>.` }),
+    el('p', { html: `<b>x representa bolsas.</b> ¿Cuántas bolsas puede comprar ${C.nombre} como máximo?` }),
+    el('div', { class: 'row' }, inp, btn, rev), fb), out);
+  return s;
+}
+
+/* 7 · Socialización de representaciones */
+function buildRecta() {
+  const s = el('section', { class: 'sec' }, ...head('Desarrollo · Socialización', 'Representamos el conjunto solución'));
+  const maxX = C.n + 4, scale = Math.max(C.B, C.E + C.P * maxX);
+  const slider = el('input', { type: 'range', min: 0, max: maxX, value: 0, step: 1, 'aria-label': 'Número de bolsas' });
+  const lineBox = el('div'), barBox = el('div'), read = el('p', { class: 'big' });
+  function upd() {
+    const x = +slider.value, tot = C.E + C.P * x, ok = tot <= C.B;
+    lineBox.innerHTML = lineSVG({ min: -1, max: maxX, a: C.bound, closed: true, dir: 'left', ints: Array.from({ length: C.n + 1 }, (_, i) => i), mark: x });
+    barBox.innerHTML = `<div class="bar"><i class="e" style="left:0;width:${C.E / scale * 100}%"></i><i class="b ${ok ? '' : 'over'}" style="left:${C.E / scale * 100}%;width:${C.P * x / scale * 100}%"></i><span class="line" style="left:${C.B / scale * 100}%"></span></div>
+      <div class="barlab"><span style="left:${C.B / scale * 100}%">Presupuesto ${money(C.B)}</span></div>`;
+    read.innerHTML = `x = <b>${x}</b> bolsas → gasto = ${C.E} + ${C.P}·${x} = <b>${money(tot)}</b> → ${ok ? '<span class="tag g">✔ Cumple</span>' : '<span class="tag r">✘ Se pasa del presupuesto</span>'}`;
+  }
+  slider.addEventListener('input', upd); upd();
+  s.append(
+    el('div', { class: 'card' },
+      el('p', { html: `Mueve el control para probar distintas cantidades de bolsas. Recuerda la inecuación de ${C.nombre}: <span class="math">${C.ineq}</span>` }),
+      slider, read, barBox, lineBox,
+      el('p', { class: 'meta', html: '● Círculo cerrado: el extremo <b>sí</b> es solución (≤). Puntos verdes: valores enteros que sirven en este problema.' })),
+    el('div', { class: 'card green' }, el('h3', {}, 'Dos conjuntos solución'),
+      el('table', { class: 't' },
+        el('tr', {}, el('th', {}, 'Algebraico'), el('td', { html: `x ≤ ${fmt(C.bound)} (todos los reales menores o iguales)` })),
+        el('tr', {}, el('th', {}, 'En el contexto'), el('td', { html: `x ∈ {0, 1, 2, …, ${C.n}} (bolsas enteras, no negativas)` })))),
+    el('div', { class: 'card' }, el('p', { html: `<b>Comprueba tu comprensión:</b> si ${C.nombre} compra <b>${C.n + 1}</b> bolsas, ¿qué ocurre?` }),
+      (() => {
+        const tot = C.P * (C.n + 1) + C.E;
+        return mcq({ id: 'recta1', hintFn: (o, a) => o.hint, options: shuffle([
+          { t: `Se cumple la condición porque ${C.n + 1} es mayor que ${C.n}.`, ok: false, hint: 'Piensa: la condición pide que el gasto no pase del presupuesto, no que x sea grande.' },
+          { t: `No se cumple: el gasto sería ${money(tot)}, que es mayor que ${money(C.B)}.`, ok: true },
+          { t: 'Se cumple solo si el empaque es gratis.', ok: false, hint: 'El empaque sí se paga; en este problema forma parte del gasto.' },
+          { t: 'No se puede saber sin conocer el nombre de la fruta.', ok: false, hint: 'La fruta no cambia el cálculo; solo importan los costos y el presupuesto.' }]) });
+      })()));
+  return s;
+}
+
+/* 8 · Formalización y resumen */
+function buildFormal() {
+  const s = el('section', { class: 'sec' }, ...head('Desarrollo · Reflexión y formalización', 'Lo que aprendimos'));
+  s.append(
+    el('div', { class: 'card accent' }, el('h3', {}, '📘 Inecuación lineal'), el('p', { html: 'Es una desigualdad con una incógnita de primer grado: <span class="math">ax + b ≤ c</span> (también con <, > o ≥), con a ≠ 0. A diferencia de una ecuación, suele tener <b>muchas</b> soluciones.' })),
+    el('div', { class: 'card' }, el('h3', {}, '⚙️ Propiedades para resolverla'),
+      el('table', { class: 't' },
+        el('tr', {}, el('th', {}, 'Operación en ambos miembros'), el('th', {}, '¿Cambia el sentido?'), el('th', {}, 'Ejemplo')),
+        el('tr', {}, el('td', {}, 'Sumar o restar el mismo número'), el('td', {}, 'No'), el('td', {}, 'x + 3 ≤ 8 → x ≤ 5')),
+        el('tr', {}, el('td', {}, 'Multiplicar o dividir por un positivo'), el('td', {}, 'No'), el('td', {}, '5x ≤ 40 → x ≤ 8')),
+        el('tr', {}, el('td', {}, 'Multiplicar o dividir por un negativo'), el('td', {}, el('b', {}, 'Sí, se invierte')), el('td', {}, '−2x < 6 → x > −3')))),
+    el('div', { class: 'card green' }, el('h3', {}, '📍 Conjunto solución y comprobación'),
+      el('ul', {},
+        el('li', { html: '<b>Conjunto solución:</b> todos los valores que hacen verdadera la desigualdad.' }),
+        el('li', { html: '<b>Recta numérica:</b> círculo cerrado ● si incluye el extremo (≤, ≥); abierto ○ si no (<, >).' }),
+        el('li', { html: '<b>En el contexto:</b> verifica si x debe ser entero, no negativo, etc. Aquí: {0, 1, …, 8}.' }),
+        el('li', { html: '<b>Siempre comprueba:</b> reemplaza en la inecuación original y en las condiciones del problema.' }))),
+    el('details', {}, el('summary', {}, 'Vocabulario clave'),
+      el('p', { html: '<b>Incógnita:</b> valor desconocido (x). <b>Miembro:</b> cada lado de la desigualdad. <b>Coeficiente:</b> número que multiplica a la incógnita. <b>Costo fijo:</b> se paga una sola vez (empaque). <b>Costo variable:</b> depende de la cantidad (bolsas).' })),
+    el('details', {}, el('summary', {}, 'Frases y símbolos'),
+      el('p', { html: '“Como máximo”, “no más de”, “a lo más” → <b>≤</b><br>“Al menos”, “no menos de”, “como mínimo” → <b>≥</b><br>“Menos de” → <b><</b> · “Más de” → <b>></b>' })));
+  return s;
+}
+
+/* 9 · Cierre: metacognición y resumen */
+function buildCierre() {
+  const s = el('section', { class: 'sec' }, ...head('Cierre', 'Metacognición y resumen de tu avance'));
+  const summary = el('div');
+  s.append(
+    el('div', { class: 'card' }, el('h3', {}, '🧠 ¿Cómo te fue?'), el('p', { class: 'meta' }, 'Marca con sinceridad: sirve para saber qué reforzar.'),
+      ...[['m1', 'Puedo traducir una condición del problema a una inecuación.'], ['m2', 'Puedo resolver una inecuación y explicar cada paso.'], ['m3', 'Sé comprobar si una solución cumple las condiciones del problema.']].map(([id, txt]) => {
+        const row = el('div', { class: 'row' }, el('span', { style: 'flex:1;min-width:220px' }, txt));
+        const grp = el('div', { class: 'syms', style: 'gap:6px' });
+        [['Lo tengo claro', 'g'], ['Me falta práctica', 'y'], ['Necesito ayuda', 'r']].forEach(([lab, k]) => {
+          const b = el('button', { type: 'button', class: 'btn small sec2' }, lab);
+          b.onclick = () => { State.meta[id] = lab; [...grp.children].forEach(x => x.classList.add('sec2')); b.classList.remove('sec2'); };
+          grp.append(b);
+        });
+        return el('div', {}, row, grp, el('hr', { style: 'border:0;border-top:1px solid var(--linea);margin:12px 0' }));
+      }),
+      el('p', { html: '<b>Pregunta final:</b> ¿por qué es importante comprobar el resultado en el contexto del problema?' }), el('textarea', { placeholder: 'Escribe tu respuesta…', 'aria-label': 'Reflexión final' })),
+    summary);
+  s.onShow = () => {
+    const lab = id => { const t = State.track[id]; if (!t || !t.solved) return '<span class="tag n">Pendiente</span>'; if (t.revealed) return '<span class="tag r">Con ayuda</span>'; return t.attempts === 1 ? '<span class="tag g">Logrado a la primera</span>' : '<span class="tag y">Logrado con pista (' + t.attempts + ' intentos)</span>'; };
+    const rows = [['Saberes previos (3 preguntas)', ['prev0', 'prev1', 'prev2']], ['Reto 1 · Elegir la inecuación', ['r1']], ['Reto 2 · Paso 1', ['r2a']], ['Reto 2 · Paso 2', ['r2b']], ['Reto 3 · Cuántas bolsas', ['r3']], ['Recta numérica · Comprobación', ['recta1']]];
+    const pend = [];
+    const body = rows.map(([n, ids], i) => {
+      const cell = ids.length > 1 ? ids.map(lab).join(' ') : lab(ids[0]);
+      if (ids.some(id => !(State.track[id] && State.track[id].solved))) pend.push(n);
+      return `<tr><td>${n}</td><td>${cell}</td></tr>`;
+    }).join('');
+    const hard = Object.entries(State.track).filter(([id, t]) => t.attempts >= 3 || t.revealed).length;
+    const msg = pend.length ? `Te faltan por completar: <b>${pend.join('; ')}</b>. Vuelve con “Regresar” para terminarlos antes de la guía.` : (hard ? 'Completaste todos los retos. Repasa los pasos donde necesitaste más intentos y luego pasa a la guía.' : '¡Excelente avance! Estás listo(a) para la Guía de actividad.');
+    const est = State.estimacion != null ? `<p>Tu estimación inicial fue <b>${fmt(State.estimacion)}</b> bolsas; con la inecuación <span class="math">5x + 8 ≤ 48</span> obtuviste <b>8</b>. ${State.estimacion === 8 ? '¡Tu intuición acertó!' : 'Por eso conviene calcular en lugar de adivinar.'}</p>` : '';
+    summary.innerHTML = `<div class="card blue"><h3>📊 Resumen de tu avance</h3><table class="t"><tr><th>Actividad</th><th>Resultado</th></tr>${body}</table>${est}<p>${msg}</p>
+      ${Object.keys(State.meta).length ? '<p class="meta">Tu autoevaluación: ' + Object.entries(State.meta).map(([k, v]) => `${{ m1: 'Traducir', m2: 'Resolver', m3: 'Comprobar' }[k]}: ${v}`).join(' · ') + '</p>' : ''}</div>`;
+  };
+  return s;
+}
+
+/* 10 · Plan lector */
+function buildLector() {
+  const s = el('section', { class: 'sec' }, ...head('Plan lector', 'La feria de los domingos'));
+  s.append(el('div', { class: 'card story' },
+    el('p', {}, 'Todos los domingos, doña Carmen y su nieto Luis caminaban temprano hasta la feria del valle. Entre puestos de manzanas, tunas, duraznos y plátanos, Luis llevaba la libreta donde apuntaba los precios. “Abuela, si la bolsa cuesta S/ 5 y solo tenemos S/ 48, ¿podemos llevarnos 10?”, preguntó. Doña Carmen sonrió: “Calcula primero, hijo. Recuerda que también pagamos S/ 8 por la caja.”'),
+    el('p', {}, 'Luis anotó: 5x + 8 ≤ 48. Resolvió con calma y descubrió que podían llevarse hasta 8 bolsas. “¿Y si compramos 9?”, insistió la abuela. Luis hizo la cuenta de nuevo: 53 soles, más de lo que tenían. “Entonces no alcanza”, respondió. Doña Carmen asintió: “Eso es pensar antes de gastar, no suerte.”'),
+    el('p', {}, 'Gastaron justo los S/ 48, ni un sol más, y volvieron a casa contentos, con la canasta llena y la libreta con una lección más.')));
+  [['¿Por qué Luis dijo que no podían llevarse 10 bolsas? Explica con datos del texto.', 'Porque 10 bolsas costarían 5·10 + 8 = S/ 58 y solo tenían S/ 48.'],
+   ['¿Qué significa la frase “Eso es pensar antes de gastar, no suerte”?', 'Que conviene calcular y comprobar con matemática antes de decidir, en lugar de confiar en la intuición o en la suerte.'],
+   ['¿Qué diferencia hay entre calcular con una inecuación y comprar “a ojo”? ¿Cuál es más seguro?', 'Con la inecuación el resultado es exacto y se puede comprobar; “a ojo” puede hacer que falte o sobre dinero. Es más seguro calcular.']
+  ].forEach(([q, model], i) => {
+    const ta = el('textarea', { placeholder: 'Escribe tu respuesta (mínimo una oración)…', 'aria-label': 'Respuesta ' + (i + 1) });
+    const box = el('div'), b = el('button', { class: 'btn small green', type: 'button' }, 'Ver respuesta modelo');
+    b.onclick = () => {
+      if (ta.value.trim().length < 20) { box.innerHTML = '<div class="fb"><div class="info">Escribe primero tu propia respuesta (una oración completa) y luego compárala con el modelo.</div></div>'; return; }
+      State.lector['p' + (i + 1)] = ta.value.trim();
+      box.innerHTML = `<div class="fb"><div class="ok"><b>Respuesta modelo:</b> ${model}<em>Compara: ¿tu respuesta usó datos del texto? ¿Qué podrías mejorar?</em></div></div>`;
+    };
+    s.append(el('div', { class: 'card' }, el('p', { html: `<b>${i + 1}.</b> ${q}` }), ta, el('div', { class: 'row' }, b), box));
+  });
+  return s;
+}
+
+/* =====================================================================
+   11 · GUÍA DE ACTIVIDAD (evaluación calificada con bloqueo)
+   ===================================================================== */
+const TEMAS = { traducir: 'Traducir condiciones a inecuaciones', resolver: 'Resolver inecuaciones', interpretar: 'Interpretar la solución en el contexto', comprobar: 'Comprobar y representar soluciones' };
+const REFUERZO = {
+  traducir: ['Repasa las frases “como máximo”, “al menos”, “más de” y el costo fijo + costo variable.', 'Practica escribir el gasto total como fijo + (precio × cantidad).'],
+  resolver: ['Repite el orden: primero sumas/restas, luego multiplicas/divides, y recuerda invertir el sentido con negativos.', 'Vuelve al Reto 2 y practica el despeje paso a paso.'],
+  interpretar: ['Recuerda: el conjunto solución del problema puede ser distinto al algebraico (enteros, no negativos).', 'Practica con el Reto 3: máximo y mínimo entero.'],
+  comprobar: ['Reemplaza siempre el valor en la inecuación original.', 'Repasa la recta numérica: círculo cerrado para ≤ y ≥, abierto para < y >.']
+};
+const SYMS = ['≤', '≥', '<', '>'];
+const genOps = () => { const sym = pick(SYMS), a = randInt(2, 6), x0 = randInt(-3, 9); let b = randInt(-9, 10); if (b === 0) b = 3; return { sym, a, b, x0, c: a * x0 + b }; };
+
+function buildPreguntas() {
+  const Q = [];
+  // 1 · Traducir enunciado
+  { const c = genFeria();
+    const tpl = pick([
+      `${c.nombre} lleva ${money(c.B)} a la feria de ${c.lugar} para comprar kilos de ${c.fruta}. Cada kilo cuesta ${money(c.P)} y paga ${money(c.E)} por el flete. Si x es el número de kilos, ¿qué inecuación representa que no se pase de su dinero?`,
+      `Un grupo de estudiantes tiene ${money(c.B)} para una visita a la feria de ${c.lugar}. Cada entrada cuesta ${money(c.P)} y el transporte cuesta ${money(c.E)} en total. Si x es el número de entradas, ¿qué inecuación representa que el gasto no supere el dinero disponible?`,
+      `Una tienda de ${c.lugar} vende paquetes de abarrotes a ${money(c.P)} cada uno y cobra ${money(c.E)} de delivery. Con ${money(c.B)}, ¿qué inecuación representa la cantidad x de paquetes que se pueden pedir sin pasarse?`]);
+    const bad = shuffle([`${c.P}x ≤ ${c.B}`, `${c.P}x + ${c.E} ≥ ${c.B}`, `${c.E}x + ${c.P} ≤ ${c.B}`, `${c.P + c.E}x ≤ ${c.B}`]).slice(0, 3);
+    Q.push({ tema: 'traducir', kind: 'mcq', prompt: tpl, options: shuffle([{ t: `${c.P}x + ${c.E} ≤ ${c.B}`, ok: true }, ...bad.map(t => ({ t, ok: false }))]), sol: `${c.P}x + ${c.E} ≤ ${c.B}` }); }
+  // 2 · Resolver (coeficiente positivo)
+  { const { sym, a, b, x0, c } = genOps();
+    Q.push({ tema: 'resolver', kind: 'solve', prompt: `Resuelve la inecuación y escribe su solución: <span class="math">${lin(a, b)} ${sym} ${fmt(c)}</span>`, sym, val: x0, sol: `x ${sym} ${fmt(x0)}` }); }
+  // 3 · Frase → símbolo
+  { const [frase, sym] = pick([['como máximo', '≤'], ['no más de', '≤'], ['a lo más', '≤'], ['al menos', '≥'], ['no menos de', '≥'], ['como mínimo', '≥'], ['por lo menos', '≥'], ['más de', '>'], ['menos de', '<']]);
+    const amt = randInt(20, 90);
+    Q.push({ tema: 'traducir', kind: 'mcq', prompt: `Una familia indica que gastará “<b>${frase}</b> ${money(amt)}” en la feria. Si G es el gasto, ¿qué expresión es correcta?`, options: SYMS.map(s => ({ t: `G ${s} ${amt}`, ok: s === sym })), sol: `G ${sym} ${amt}` }); }
+  // 4 · Coeficiente negativo
+  { const sym = pick(SYMS), a = randInt(2, 5), x0 = randInt(-6, 4); let b = randInt(-6, 9); if (b === 0) b = 4; const c = -a * x0 + b;
+    Q.push({ tema: 'resolver', kind: 'solve', prompt: `Resuelve (cuidado con el sentido): <span class="math">${lin(-a, b)} ${sym} ${fmt(c)}</span>`, sym: FLIP[sym], val: x0, sol: `x ${FLIP[sym]} ${fmt(x0)}` }); }
+  // 5 · Máximo de bolsas
+  { const c = genFeria();
+    Q.push({ tema: 'interpretar', kind: 'num', prompt: `${c.nombre} tiene ${money(c.B)} en la feria de ${c.lugar}. Las ${c.fruta} se venden en bolsas de ${money(c.P)} y el empaque cuesta ${money(c.E)}. ¿Cuántas bolsas como máximo puede comprar?`, num: c.n, sol: String(c.n) }); }
+  // 6 · ¿Es solución?
+  { const { sym, a, b, x0, c } = genOps(); const v = x0 + pick([-2, -1, 0, 1, 2]); const ok = holds(a * v + b, sym, c);
+    Q.push({ tema: 'comprobar', kind: 'mcq', prompt: `¿El valor <b>x = ${fmt(v)}</b> es solución de <span class="math">${lin(a, b)} ${sym} ${fmt(c)}</span>?`, options: [{ t: 'Sí, es solución', ok }, { t: 'No, no es solución', ok: !ok }], sol: ok ? 'Sí' : 'No' }); }
+  // 7 · Elegir la gráfica
+  { const sym = pick(SYMS), a = randInt(-3, 6), k = randInt(1, 5), m = a + k;
+    const combos = SYMS.map(s => ({ s, svg: lineSVG({ min: a - 4, max: a + 4, a, closed: s === '≤' || s === '≥', dir: (s === '≥' || s === '>') ? 'right' : 'left', w: 300, h: 100 }) }));
+    Q.push({ tema: 'comprobar', kind: 'mcq', graphs: true, prompt: `Resuelve <span class="math">x + ${k} ${sym} ${fmt(m)}</span> y elige la gráfica que representa su solución en la recta numérica.`, options: shuffle(combos).map(cb => ({ t: cb.svg, ok: cb.s === sym })), sol: `x ${sym} ${fmt(a)}` }); }
+  // 8 · Mínimo entero
+  { const P = randInt(2, 6), m = randInt(8, 30), rem = randInt(0, P - 1), E = randInt(10, 40); const diff = rem === 0 ? P * m : P * (m - 1) + rem, B = E + diff;
+    Q.push({ tema: 'interpretar', kind: 'num', prompt: `Una asociación de Chupaca vende platos de choclo con queso a ${money(P)} cada uno para completar ${money(B)} para su viaje. Ya tiene ${money(E)} ahorrados. ¿Cuál es el <b>mínimo</b> de platos que debe vender?`, num: m, sol: String(m) }); }
+  // 9 · Cuántos enteros desde 0
+  { let o, cnt;
+    do { o = { a: randInt(2, 6), b: randInt(1, 9), c: randInt(20, 60), sym: pick(['≤', '<']) }; cnt = 0; for (let x = 0; x <= 500; x++) if (holds(o.a * x + o.b, o.sym, o.c)) cnt++; } while (cnt < 3 || cnt > 12);
+    Q.push({ tema: 'interpretar', kind: 'num', prompt: `¿Cuántos valores enteros de x, desde 0 en adelante (0, 1, 2, 3, …), cumplen <span class="math">${lin(o.a, o.b)} ${o.sym} ${o.c}</span>?`, num: cnt, sol: String(cnt) }); }
+  // 10 · Conclusión en el contexto
+  { const c = genFeria();
+    const sol = c.r === 0 ? `x ≤ ${c.n}` : `x ≤ ${fmt(c.bound)}`;
+    Q.push({ tema: 'interpretar', kind: 'mcq', prompt: `Para ${c.nombre}, la solución de <span class="math">${c.ineq}</span> es <span class="math">${sol}</span>. ¿Cuál conclusión es correcta en el contexto (x = bolsas)?`,
+      options: shuffle([{ t: `Puede comprar como máximo ${c.n} bolsas; con ${c.n + 1} se pasa del presupuesto.`, ok: true }, { t: `Debe comprar exactamente ${c.n} bolsas, ni una más ni una menos.`, ok: false }, { t: `Puede comprar ${c.n + 1} bolsas, porque se redondea hacia arriba.`, ok: false }, { t: `Puede comprar cualquier cantidad de bolsas mayor que ${c.n}.`, ok: false }]), sol: `Máximo ${c.n} bolsas` }); }
+  return Q;
+}
+function gradeQ(q, a) {
+  if (a == null) return false;
+  if (q.kind === 'mcq') return !!(q.options[a] && q.options[a].ok);
+  if (q.kind === 'solve') return !!(a.sym === q.sym && almost(parseNum(a.val), q.val));
+  if (q.kind === 'num') { const v = parseNum(a); return Number.isInteger(v) && v === q.num; }
+  return false;
+}
+const nivel = p => p >= 18 ? 'AD' : p >= 14 ? 'A' : p >= 11 ? 'B' : 'C';
+const NIVEL_TXT = { AD: 'Logro destacado', A: 'Logro esperado', B: 'En proceso', C: 'En inicio' };
+
+const Exam = { active: false, fs: false, grace: 0, q: [], ans: [], idx: 0, start: 0, timer: null, student: null, root: null };
+
+function guardarResultado(res) {
+  let estado = 'Guardado en este dispositivo.';
+  try { const arr = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]'); arr.push(res); localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(arr)); }
+  catch (e) { estado = 'No se pudo guardar en este dispositivo (almacenamiento bloqueado).'; }
+  if (CONFIG.API_URL) {
+    fetch(CONFIG.API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(res), keepalive: true })
+      .then(r => { const n = $('#saveState'); if (n) n.textContent = r.ok ? 'Resultado enviado al servidor.' : 'No se pudo enviar al servidor (código ' + r.status + ').'; })
+      .catch(() => { const n = $('#saveState'); if (n) n.textContent = 'Sin conexión: el resultado quedó guardado en este dispositivo.'; });
+  }
+  return estado;
+}
+function yaRindio(doc) {
+  try { return JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEY) || '[]').some(r => r.estudiante && r.estudiante.documento === doc); } catch (e) { return false; }
+}
+
+function buildGuia() {
+  const s = el('section', { class: 'sec' }); Exam.root = s;
+  const last = (() => { try { const v = JSON.parse(sessionStorage.getItem(CONFIG.LAST_KEY) || 'null'); sessionStorage.removeItem(CONFIG.LAST_KEY); return v; } catch (e) { return null; } })();
+  if (last) {
+    Exam.student = last.estudiante;
+    s.append(...head('Guía de actividad', 'Evaluación finalizada automáticamente'), resultadoHTML(last, 'Resultado guardado en este dispositivo.'));
+    return s;
+  }
+  const snap = (() => { try { return JSON.parse(sessionStorage.getItem(CONFIG.PROGRESS_KEY) || 'null'); } catch (e) { return null; } })();
+  if (snap) { // la página se recargó o cerró durante una evaluación en curso
+    sessionStorage.removeItem(CONFIG.PROGRESS_KEY);
+    Exam.student = snap.student; Exam.start = snap.start;
+    const pts = snap.pts || [];
+    const res = armarResultado(pts, snap.tema || [], 'interrumpida', 'Recargó o cerró la página durante la evaluación', Math.round((Date.now() - snap.start) / 1000));
+    s.append(...head('Guía de actividad', 'Evaluación finalizada'), resultadoHTML(res, guardarResultado(res)));
+    return s;
+  }
+  renderRegistro();
+  return s;
+}
+function renderRegistro() {
+  const s = Exam.root; s.replaceChildren(...head('Guía de actividad', 'Evaluación calificada · 10 ejercicios'));
+  const f = (id, label, attrs = {}) => [el('label', { class: 'f', for: id }, label), el('input', { type: 'text', id, autocomplete: 'off', ...attrs })];
+  const err = el('div', { class: 'errtxt', 'aria-live': 'polite' });
+  const chk = el('input', { type: 'checkbox', id: 'acepto' });
+  const sec = el('select', { id: 'seccion', 'aria-label': 'Sección' }, el('option', { value: '' }, 'Elige…'), ...'ABCDEFGHIJ'.split('').map(l => el('option', { value: l }, l)));
+  const btn = el('button', { class: 'btn', type: 'button' }, 'Iniciar evaluación');
+  s.append(
+    el('div', { class: 'warn' }, el('b', {}, '⚠️ Lee antes de empezar'),
+      el('ul', {},
+        el('li', {}, 'Son 10 ejercicios nuevos (2 puntos cada uno, nota sobre 20). No hay pistas.'),
+        el('li', { html: '<b>No puedes salir de esta pantalla</b>: si cambias de pestaña, minimizas, abres otra aplicación, sales de pantalla completa o recargas la página, <b>la evaluación se da por finalizada</b> con lo que hayas respondido.' }),
+        el('li', {}, 'Puedes ir y volver entre preguntas y cambiar tus respuestas antes de finalizar.'),
+        el('li', {}, 'Ten a la mano lápiz y papel para tus cálculos. Desactiva notificaciones si usas celular.'))),
+    el('div', { class: 'card' }, el('h3', {}, 'Registro del estudiante'),
+      ...f('apellidos', 'Apellidos', { maxlength: 60 }), ...f('nombres', 'Nombres', { maxlength: 60 }),
+      ...f('documento', 'DNI o código de estudiante', { maxlength: 12, inputmode: 'numeric' }),
+      el('label', { class: 'f', for: 'grado' }, 'Grado'), el('input', { type: 'text', id: 'grado', value: '2.º de secundaria', readonly: true }),
+      el('label', { class: 'f', for: 'seccion' }, 'Sección'), sec,
+      ...f('ie', 'Institución educativa', { maxlength: 80 }),
+      el('p', { class: 'meta' }, 'Tus datos y resultado se usan solo para registrar tu evaluación de Matemática.'),
+      el('label', { class: 'opt', style: 'margin-top:12px' }, chk, el('span', { class: 'optt' }, 'Entiendo las reglas: si salgo de la pantalla, la evaluación termina.')), err,
+      el('div', { class: 'row' }, btn)));
+  btn.onclick = () => {
+    const v = id => $('#' + id, s).value.trim();
+    const st = { apellidos: v('apellidos'), nombres: v('nombres'), documento: v('documento'), grado: '2.º de secundaria', seccion: v('seccion'), ie: v('ie') };
+    if (st.apellidos.length < 2 || st.nombres.length < 2) return err.textContent = 'Escribe tus apellidos y nombres.';
+    if (!/^[A-Za-z0-9]{6,12}$/.test(st.documento)) return err.textContent = 'El DNI o código debe tener entre 6 y 12 letras o números.';
+    if (!st.seccion) return err.textContent = 'Elige tu sección.';
+    if (!st.ie) return err.textContent = 'Escribe el nombre de tu institución educativa.';
+    if (!chk.checked) return err.textContent = 'Marca que entiendes las reglas para continuar.';
+    if (CONFIG.UN_INTENTO_POR_DOCUMENTO && yaRindio(st.documento)) return err.textContent = 'Ya existe un resultado con este documento en este dispositivo. Pide autorización a tu docente para repetirla.';
+    err.textContent = ''; iniciarExamen(st);
+  };
+}
+
+function iniciarExamen(st) {
+  Exam.student = st; Exam.q = buildPreguntas(); Exam.ans = new Array(CONFIG.PREGUNTAS).fill(null); Exam.idx = 0; Exam.start = Date.now();
+  document.body.classList.add('exam-mode');
+  try { const p = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); if (p && p.then) p.then(() => { Exam.fs = true; }).catch(() => { Exam.fs = false; }); } catch (e) { Exam.fs = false; }
+  Exam.grace = Date.now() + 1200; Exam.active = true;
+  guardarSnapshot();
+  Exam.timer = setInterval(() => { const t = $('#examTimer'); if (t) { const sg = Math.round((Date.now() - Exam.start) / 1000); t.textContent = String(Math.floor(sg / 60)).padStart(2, '0') + ':' + String(sg % 60).padStart(2, '0'); } }, 1000);
+  renderPregunta(); window.scrollTo(0, 0);
+}
+function ptsActuales() { return Exam.q.map((q, i) => gradeQ(q, Exam.ans[i]) ? CONFIG.PUNTOS_POR_PREGUNTA : 0); }
+function guardarSnapshot() {
+  try { sessionStorage.setItem(CONFIG.PROGRESS_KEY, JSON.stringify({ student: Exam.student, start: Exam.start, pts: ptsActuales(), tema: Exam.q.map(q => q.tema), resp: Exam.ans.map(a => a != null) })); } catch (e) { /* sin almacenamiento de sesión */ }
+}
+function renderPregunta() {
+  const s = Exam.root, i = Exam.idx, q = Exam.q[i];
+  s.replaceChildren();
+  s.append(el('div', { class: 'examhead' }, el('b', {}, `Pregunta ${i + 1} de ${CONFIG.PREGUNTAS}`), el('span', {}, '⏱ ', el('b', { id: 'examTimer' }, '00:00')), el('span', { class: 'meta', style: 'color:#fff' }, 'No salgas de esta pantalla')));
+  const dots = el('div', { class: 'dots', role: 'navigation', 'aria-label': 'Preguntas' });
+  Exam.q.forEach((_, k) => dots.append(el('button', { type: 'button', class: (k === i ? 'cur ' : '') + (Exam.ans[k] != null ? 'done' : ''), 'aria-label': 'Ir a la pregunta ' + (k + 1), onclick: () => { Exam.idx = k; renderPregunta(); } }, String(k + 1))));
+  const card = el('div', { class: 'card noselect' }, el('p', { html: `<b>${i + 1}.</b> ${q.prompt}` }));
+  if (q.kind === 'mcq') {
+    const wrap = el('div', { class: 'opts' + (q.graphs ? ' graphs' : '') });
+    q.options.forEach((o, k) => {
+      const inp = el('input', { type: 'radio', name: 'ex' + i, value: k, checked: Exam.ans[i] === k });
+      inp.addEventListener('change', () => { Exam.ans[i] = k; guardarSnapshot(); dots.children[i].classList.add('done'); });
+      wrap.append(el('label', { class: 'opt' }, inp, el('span', { class: 'optt', html: q.graphs ? `<b>${'ABCD'[k]}.</b> ${o.t}` : o.t })));
+    });
+    card.append(wrap);
+  } else if (q.kind === 'solve') {
+    const cur = Exam.ans[i] || { sym: '', val: '' };
+    const inp = el('input', { type: 'text', class: 'num', inputmode: 'decimal', value: cur.val, 'aria-label': 'Valor' });
+    const grp = el('div', { class: 'syms', role: 'radiogroup' }, ...SYMS.map(sy => { const r = el('input', { type: 'radio', name: 'exs' + i, value: sy, checked: cur.sym === sy }); r.addEventListener('change', sync); return el('label', {}, r, el('span', {}, sy)); }));
+    function sync() { const sy = (grp.querySelector('input:checked') || {}).value || ''; Exam.ans[i] = (sy || inp.value.trim()) ? { sym: sy, val: inp.value } : null; guardarSnapshot(); dots.children[i].classList.toggle('done', Exam.ans[i] != null); }
+    inp.addEventListener('input', sync);
+    card.append(el('div', { class: 'row' }, el('span', { class: 'math' }, 'x'), grp, inp), el('p', { class: 'meta' }, 'Elige el símbolo y escribe el número (puedes usar decimales o fracciones).'));
+  } else {
+    const inp = el('input', { type: 'text', class: 'num', inputmode: 'numeric', value: Exam.ans[i] ?? '', 'aria-label': 'Respuesta' });
+    inp.addEventListener('input', () => { Exam.ans[i] = inp.value.trim() === '' ? null : inp.value; guardarSnapshot(); dots.children[i].classList.toggle('done', Exam.ans[i] != null); });
+    card.append(el('div', { class: 'row' }, el('span', {}, 'Respuesta:'), inp));
+  }
+  const aviso = el('div', { 'aria-live': 'polite' });
+  const prev = el('button', { class: 'btn sec2', type: 'button', disabled: i === 0, onclick: () => { Exam.idx--; renderPregunta(); } }, '← Anterior');
+  const last = i === CONFIG.PREGUNTAS - 1;
+  const next = el('button', { class: last ? 'btn green' : 'btn', type: 'button', onclick: () => {
+    if (!last) { Exam.idx++; renderPregunta(); window.scrollTo(0, 0); return; }
+    const sin = Exam.ans.filter(a => a == null).length;
+    if (sin && !aviso.dataset.ok) {
+      aviso.dataset.ok = '1'; aviso.innerHTML = `<div class="warn">Tienes <b>${sin}</b> pregunta(s) sin responder. Vuelve a pulsar <b>Finalizar evaluación</b> para terminar de todos modos.</div>`; return;
+    }
+    finalizarExamen('completada', '');
+  } }, last ? 'Finalizar evaluación' : 'Siguiente →');
+  s.append(dots, card, aviso, el('div', { class: 'row', style: 'justify-content:space-between' }, prev, next));
+}
+function armarResultado(pts, temas, estado, motivo, duracion) {
+  const total = pts.reduce((a, b) => a + b, 0);
+  return {
+    version: 1, fechaISO: new Date().toISOString(), estudiante: Exam.student, puntaje: total, puntajeMax: CONFIG.PREGUNTAS * CONFIG.PUNTOS_POR_PREGUNTA,
+    nivel: nivel(total), correctas: pts.filter(p => p > 0).length, estado, motivo, duracionSeg: duracion,
+    detalle: pts.map((p, i) => ({ n: i + 1, tema: temas[i] || '', puntos: p })), dispositivo: navigator.userAgent
+  };
+}
+function finalizarExamen(estado, motivo) {
+  if (!Exam.active && estado !== 'completada') return;
+  Exam.active = false; clearInterval(Exam.timer);
+  try { sessionStorage.removeItem(CONFIG.PROGRESS_KEY); } catch (e) { /* nada */ }
+  document.body.classList.remove('exam-mode');
+  try { if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen(); } catch (e) { /* nada */ }
+  const pts = ptsActuales(), res = armarResultado(pts, Exam.q.map(q => q.tema), estado, motivo, Math.round((Date.now() - Exam.start) / 1000));
+  const guardado = guardarResultado(res);
+  res._q = Exam.q.map(q => ({ sol: q.sol }));
+  if (estado !== 'completada') { try { const { _q, ...l } = res; sessionStorage.setItem(CONFIG.LAST_KEY, JSON.stringify(l)); } catch (e) { /* nada */ } }
+  const s = Exam.root; s.replaceChildren(...head('Guía de actividad', estado === 'completada' ? 'Evaluación finalizada' : 'Evaluación finalizada automáticamente'));
+  s.append(resultadoHTML(res, guardado));
+  updateNav(); window.scrollTo(0, 0);
+}
+function resultadoHTML(res, guardado) {
+  const box = el('div');
+  const porTema = {}; res.detalle.forEach(d => { const t = porTema[d.tema] ||= { ok: 0, n: 0 }; t.n++; if (d.puntos > 0) t.ok++; });
+  const filas = Object.entries(porTema).map(([k, v]) => `<tr><td>${TEMAS[k] || k}</td><td>${v.ok} de ${v.n}</td><td>${v.ok === v.n ? '<span class="tag g">Logrado</span>' : v.ok === 0 ? '<span class="tag r">Por reforzar</span>' : '<span class="tag y">En proceso</span>'}</td></tr>`).join('');
+  const reforzar = Object.entries(porTema).filter(([k, v]) => v.ok < v.n).map(([k]) => `<li><b>${TEMAS[k]}:</b> ${pick(REFUERZO[k])}</li>`).join('');
+  const st = res.estudiante || {};
+  box.innerHTML = `
+    ${res.estado !== 'completada' ? `<div class="warn"><b>La evaluación terminó antes de tiempo.</b><br>Motivo: ${res.motivo}. Se calificó lo que habías respondido hasta ese momento.</div>` : ''}
+    <div class="card accent" id="constancia"><p class="meta">Constancia de resultado · Matemática 2.º grado · Inecuaciones lineales</p>
+      <p><b>${st.apellidos || ''}, ${st.nombres || ''}</b> · Doc.: ${st.documento || ''} · Sección ${st.seccion || ''}<br>${st.ie || ''}</p>
+      <div class="row"><div class="score">${res.puntaje}<span style="font-size:1.2rem"> / ${res.puntajeMax}</span></div><div><span class="tag ${res.nivel === 'AD' || res.nivel === 'A' ? 'g' : res.nivel === 'B' ? 'y' : 'r'}" style="font-size:1rem">${res.nivel} · ${NIVEL_TXT[res.nivel]}</span><br><span class="meta">${res.correctas} de ${res.detalle.length} ejercicios correctos · Tiempo: ${Math.floor(res.duracionSeg / 60)} min ${res.duracionSeg % 60} s</span></div></div>
+      <table class="t"><tr><th>Tema</th><th>Aciertos</th><th>Estado</th></tr>${filas}</table>
+      ${reforzar ? `<h3>Para reforzar</h3><ul>${reforzar}</ul>` : '<p><b>¡Excelente!</b> Dominas los cuatro temas evaluados. Puedes plantearte retos con coeficientes negativos y fracciones.</p>'}
+      ${CONFIG.MOSTRAR_RESPUESTAS_AL_FINAL && res._q ? '<details><summary>Respuestas correctas</summary><ol>' + res._q.map(q => `<li>${q.sol}</li>`).join('') + '</ol></details>' : ''}
+      <p class="meta" id="saveState">${guardado}</p></div>
+    <div class="row no-print"><button class="btn sec2" type="button" id="bPrint">🖨️ Imprimir constancia</button><button class="btn sec2" type="button" id="bJson">⬇️ Descargar resultado (JSON)</button></div>`;
+  box.querySelector('#bPrint').onclick = () => window.print();
+  box.querySelector('#bJson').onclick = () => {
+    const { _q, ...limpio } = res;
+    const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(limpio, null, 2)], { type: 'application/json' })), download: `resultado_${(st.documento || 'estudiante')}.json` });
+    document.body.append(a); a.click(); a.remove();
+  };
+  return box;
+}
+
+/* ---------- Bloqueo: detectar que el estudiante sale de la pantalla ---------- */
+function violacion(motivo) { if (!Exam.active || Date.now() < Exam.grace) return; finalizarExamen('interrumpida', motivo); }
+document.addEventListener('visibilitychange', () => { if (document.hidden) violacion('Cambió de pestaña, minimizó o bloqueó la pantalla'); });
+window.addEventListener('blur', () => violacion('Salió de la ventana de la evaluación (otra aplicación o ventana)'));
+window.addEventListener('pagehide', () => violacion('Cerró o abandonó la página'));
+document.addEventListener('fullscreenchange', () => { if (Exam.active && Exam.fs && !document.fullscreenElement) violacion('Salió del modo de pantalla completa'); });
+window.addEventListener('beforeunload', e => { if (Exam.active) { e.preventDefault(); e.returnValue = ''; } });
+['contextmenu', 'copy', 'cut', 'paste', 'dragstart'].forEach(ev => document.addEventListener(ev, e => { if (Exam.active) e.preventDefault(); }));
+document.addEventListener('keydown', e => {
+  if (!Exam.active) return;
+  const k = (e.key || '').toLowerCase();
+  if (k === 'f12' || ((e.ctrlKey || e.metaKey) && ['c', 'v', 'x', 'p', 's', 'u', 'a'].includes(k)) || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i', 'j', 'c'].includes(k))) e.preventDefault();
+});
+
+/* =====================================================================
+   NAVEGACIÓN
+   ===================================================================== */
+const SECTIONS = [
+  { id: 'portada', title: 'Presentación', build: buildPortada },
+  { id: 'motivacion', title: 'Inicio · Motivación y saberes previos', build: buildMotivacion },
+  { id: 'situacion', title: 'Inicio · Situación significativa', build: buildSituacion },
+  { id: 'familiar', title: 'Desarrollo · Familiarización', build: buildFamiliar },
+  { id: 'reto1', title: 'Reto 1 · Elige la inecuación', build: buildReto1 },
+  { id: 'reto2', title: 'Reto 2 · Resuelve la inecuación', build: buildReto2 },
+  { id: 'reto3', title: 'Reto 3 · ¿Cuántas bolsas?', build: buildReto3 },
+  { id: 'recta', title: 'Socialización · Recta numérica', build: buildRecta },
+  { id: 'formal', title: 'Formalización · Resumen', build: buildFormal },
+  { id: 'cierre', title: 'Cierre · Metacognición y resumen', build: buildCierre },
+  { id: 'lector', title: 'Plan lector', build: buildLector },
+  { id: 'guia', title: 'Guía de actividad (evaluación)', build: buildGuia }
+];
+let cur = 0;
+function updateNav() {
+  $('#btnPrev').disabled = cur === 0; $('#btnNext').disabled = cur === SECTIONS.length - 1;
+  $('#navInfo').textContent = `Sección ${cur + 1} de ${SECTIONS.length}`;
+  $('#where').textContent = SECTIONS[cur].title;
+  $('#progbar').style.width = ((cur + 1) / SECTIONS.length * 100) + '%';
+}
+function go(i) {
+  if (Exam.active) return;
+  cur = Math.max(0, Math.min(SECTIONS.length - 1, i));
+  const app = $('#app');
+  SECTIONS.forEach((sc, k) => { if (k === cur && !sc.node) { sc.node = sc.build(); app.append(sc.node); } if (sc.node) sc.node.hidden = k !== cur; });
+  if (SECTIONS[cur].node.onShow) SECTIONS[cur].node.onShow();
+  updateNav(); window.scrollTo({ top: 0 }); app.focus({ preventScroll: true });
+}
+$('#btnPrev').addEventListener('click', () => go(cur - 1));
+$('#btnNext').addEventListener('click', () => go(cur + 1));
+// Si la página se recargó durante la evaluación, se abre directamente la Guía con el aviso
+try { if (sessionStorage.getItem(CONFIG.PROGRESS_KEY) || sessionStorage.getItem(CONFIG.LAST_KEY)) go(SECTIONS.length - 1); else go(0); } catch (e) { go(0); }
+</script>
+</body>
+</html>
